@@ -1,0 +1,4 @@
+{
+  "python.pythonPath": "/Users/juliant/GitLocal/Play/pytest-class-method-repro/venv/bin/python3",
+  "python.analysis.extraPaths": ["tests", "src"]
+}
