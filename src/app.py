@@ -31,7 +31,9 @@ class FakeJira(object):
             response["code"] = "there was an error even though this should be mocked"
             response["issue"] = "issue is never returned"
         else:
-            response["code"] = "we're doing something else here"
+            response[
+                "code"
+            ] = "the call actually succeeded, but I need to mock issue.raw and idk how"
             response["issue"] = issue.raw
             response["this"] = "never gets called"
         finally:
