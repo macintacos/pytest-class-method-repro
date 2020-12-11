@@ -4,6 +4,7 @@ REQUIRED = [
     "pytest==6.1.2",
     "pytest-mock==3.3.1",
     "jira==2.0.0",
+    "mock==4.0.2",
 ]
 PACKAGES = find_packages("src")
 

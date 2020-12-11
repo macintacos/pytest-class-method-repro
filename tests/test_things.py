@@ -1,6 +1,6 @@
-import pytest
 from app import FakeJira
 from jira import JIRA
+from mock import patch
 
 
 def test_get_jira_issue(mocker):
@@ -8,19 +8,17 @@ def test_get_jira_issue(mocker):
         self.jira = JIRA()
 
     mocker.patch.object(JIRA, "__init__", autospec=True, return_value=None)
-    mocker.patch.object(
-        JIRA,
-        "issue",
-        return_value={"hey": "I ACTUALLY RETURNED IN THE RIGHT CALL HALLELUJAH"},
-    )
     mocker.patch.object(FakeJira, "__init__", __init__)
+    with patch("jira.JIRA.issue") as mock_issue:
+        issue = JIRA.issue()
+        issue.raw = "it works!"
+        mock_issue.return_value = issue
 
-    hey = FakeJira()
+        hey = FakeJira()
+        issue = hey.get_jira_issue("some issue")
 
-    issue = hey.get_jira_issue("some issue")
-
-    assert issue == {
-        "code": "the call actually succeeded, but I need to mock issue.raw and idk how",
-        "issue": "",
-        "this": "never gets called",
-    }
+        assert issue == {
+            "code": "the call actually succeeded, but I need to mock issue.raw and idk how",
+            "issue": "it works!",
+            "this": "never gets called",
+        }
