@@ -32,6 +32,7 @@ class FakeJira(object):
             response["issue"] = "issue is never returned"
         else:
             response["code"] = "we're doing something else here"
-            response["issue"] = issue
+            response["issue"] = issue.raw
+            response["this"] = "never gets called"
         finally:
             return response
